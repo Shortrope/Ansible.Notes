@@ -1,0 +1,30 @@
+This is a supplemental document for the dynamic inventories lecture meant to detail the output Ansible requires for the dynamic inventory argument.
+
+There are two arguments a dynamic inventory must respond to: --list and --host [hostname]
+
+The --list argument must return a JSON-encoded hash or dictionary containing all groups that are part of the inventory.  The groups must include all host and child group information.
+
+{
+   "httpd": {
+       "hosts": ["httpd1","httpd2"],
+       "vars": {
+           "httpd_port": 80
+       },
+       "children": ["cdn"]
+   },
+   "cdn": {
+       "hosts": ["cdn1","cdn2"],
+       "vars": {
+           "content_dir": "/var/www/content"
+       },
+       "children":[]
+   }
+
+}
+
+The --host [hostname] argument must return either an empty JSON hash or dictionary or a hash or dictionary of variables to make available to templates and playbooks.
+
+{
+    "VAR001": "VALUE",
+    "VAR002": "VALUE",
+}
